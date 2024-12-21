@@ -1,8 +1,54 @@
 export default {
   translation: {
+    common: {
+      loading: 'Loading...',
+      error: 'An error occurred',
+      cancel: 'Cancel',
+      confirm: 'Confirm',
+      backToHome: 'Back to Home',
+    },
+    form: {
+      title: "Interview Form",
+      subtitle: "Please fill out the form to participate.",
+      name: "Name",
+      email: "Email",
+      role: "Role",
+      phone: "Phone",
+      level: "Level",
+      language: "Language",
+      levels: {
+        junior: "Junior",
+        mid: "Mid-Level",
+        senior: "Senior"
+      },
+      start: "Start Interview",
+      loading: "Loading..."
+    },
     meta: {
       title: 'Prepare.me - Your Interview Success Partner',
       description: 'Get ready for your next job interview with personalized AI-powered preparation and expert guidance',
+    },
+    auth: {
+      welcome: 'Welcome back',
+      createAccount: 'Create an account',
+      signIn: 'Sign In',
+      signUp: 'Sign Up',
+      signOut: 'Sign Out',
+      fullName: 'Full Name',
+      email: 'Email',
+      password: 'Password',
+      namePlaceholder: 'John Doe',
+      emailPlaceholder: 'you@example.com',
+      passwordPlaceholder: '••••••••',
+      errors: {
+        login: 'An error occurred during login',
+        register: 'An error occurred during registration',
+      },
+    },
+    header: {
+      signIn: 'Sign In',
+      signOut: 'Sign Out',
+      welcome: 'Welcome, {{name}}',
     },
     hero: {
       title: 'Master Your Next Interview',
@@ -14,76 +60,35 @@ export default {
         rate: '94%',
         rateLabel: 'Success Rate',
         companies: '500+',
-        companiesLabel: 'Partner Companies'
-      }
+        companiesLabel: 'Partner Companies',
+      },
     },
     features: {
       title: 'Why Choose Us',
       subtitle: 'Comprehensive interview preparation tailored to your needs',
       personalized: 'Smart Preparation',
       personalizedDesc: 'AI-powered questions based on your role',
+      personalizedDetails: 'Our advanced AI analyzes thousands of real interview scenarios to generate specific questions that match your position and experience level.',
       
       feedback: 'Instant Feedback',
       feedbackDesc: 'Get detailed insights on your performance',
+      feedbackDetails: 'Receive detailed feedback on your answers, including language analysis, content evaluation, and specific recommendations for improvement.',
       
       resources: 'Learning Resources',
       resourcesDesc: 'Access curated materials for your role',
+      resourcesDetails: 'Get access to industry-specific guides, answer examples, salary negotiation strategies, and behavioral interview frameworks.',
       
       expertise: 'Industry Insights',
       expertiseDesc: 'Learn from experienced professionals',
+      expertiseDetails: 'Access exclusive insights from hiring managers and industry veterans who have conducted thousands of interviews.',
       
       community: 'Active Community',
       communityDesc: 'Connect with fellow candidates',
+      communityDetails: 'Join our community of ambitious professionals, share experiences, and get motivated by success stories.',
       
       success: 'Proven Results',
-      successDesc: 'High success rate in interviews'
+      successDesc: 'High success rate in interviews',
+      successDetails: 'Our platform has helped thousands of professionals land their dream jobs at major companies.',
     },
-    form: {
-      title: 'Start Your Preparation',
-      subtitle: 'Tell us about your target role',
-      name: 'Full Name',
-      role: 'Target Position',
-      level: 'Experience Level',
-      email: 'Email Address',
-      phone: 'Phone Number',
-      start: 'Begin Practice',
-      levels: {
-        junior: 'Junior (0-2 years)',
-        mid: 'Mid-Level (3-5 years)',
-        senior: 'Senior (6+ years)'
-      }
-    },
-    interview: {
-      progress: 'Question {{current}} of {{total}}',
-      topic: 'Topic',
-      answerPlaceholder: 'Type your answer here...',
-      previous: 'Previous',
-      next: 'Next',
-      finish: 'Finish',
-      submit: 'Submit Answer',
-      confirmation: 'Are you sure you want to finish?'
-    },
-    review: {
-      title: 'Review Your Answers',
-      subtitle: 'Take a moment to review before submitting',
-      edit: 'Edit Answers',
-      submit: 'Submit for Evaluation'
-    },
-    feedback: {
-      title: 'Your Interview Analysis',
-      overallScore: 'Overall Score',
-      strengths: 'Key Strengths',
-      improvements: 'Areas for Improvement',
-      recommendations: 'Recommendations',
-      topicBreakdown: 'Topic Analysis',
-      understanding: {
-        excellent: 'Excellent',
-        good: 'Good',
-        fair: 'Fair',
-        needs_improvement: 'Needs Work'
-      },
-      studyResources: 'Study Resources',
-      downloadReport: 'Download Report'
-    }
-  }
+  },
 };

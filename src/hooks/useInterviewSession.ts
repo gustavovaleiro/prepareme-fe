@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Question, Answer, InterviewSession } from '../types';
+import type { Question, InterviewSession } from '../types';
 
 export function useInterviewSession(initialQuestions: Question[]) {
   const [session, setSession] = useState<InterviewSession>({

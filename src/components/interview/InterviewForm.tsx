@@ -1,9 +1,9 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
-import { Briefcase, Mail, Phone, User } from 'lucide-react';
+import { Briefcase, Languages, Mail, Phone, User } from 'lucide-react';
 import type { FormData } from '../../types/interview';
+import { useEffect } from 'react';
 
 interface Props {
   onSubmit: (data: FormData) => void;
@@ -11,9 +11,19 @@ interface Props {
 }
 
 export function InterviewForm({ onSubmit, isLoading = false }: Props) {
-  const { t } = useTranslation();
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const { t, i18n } = useTranslation();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormData>();
 
+  // Atualizando o valor do campo de idioma após a montagem do componente
+  useEffect(() => {
+    setValue('language', i18n.language);
+  }, [i18n.language, setValue]);
+
+  const languages = [
+    { code: 'en', label: 'English' },
+    { code: 'pt-BR', label: 'Português' },
+    { code: 'es', label: 'Español' }
+  ];
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       <motion.div
@@ -51,7 +61,7 @@ export function InterviewForm({ onSubmit, isLoading = false }: Props) {
               </label>
               <input
                 type="email"
-                {...register('email', { required: true })}
+                {...register('email', { required: false })}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="john@example.com"
               />
@@ -81,21 +91,40 @@ export function InterviewForm({ onSubmit, isLoading = false }: Props) {
                 placeholder="+1 (555) 000-0000"
               />
             </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t('form.level')}
+              </label>
+              <select
+                {...register('level', { required: true })}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="junior">{t('form.levels.junior')}</option>
+                <option value="mid">{t('form.levels.mid')}</option>
+                <option value="senior">{t('form.levels.senior')}</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t('form.language')}
+              </label>
+              <select
+                {...register('language', { required: true })}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              >
+                {languages.map(lang => (
+                  <option key={lang.code} value={lang.code}>
+                    {lang.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              {t('form.level')}
-            </label>
-            <select
-              {...register('level', { required: true })}
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            >
-              <option value="junior">{t('form.levels.junior')}</option>
-              <option value="mid">{t('form.levels.mid')}</option>
-              <option value="senior">{t('form.levels.senior')}</option>
-            </select>
-          </div>
+          
 
           <motion.button
             type="submit"

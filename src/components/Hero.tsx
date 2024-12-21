@@ -12,7 +12,7 @@ export function Hero() {
   ];
 
   return (
-    <div className="relative w-full h-full flex items-center bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 overflow-hidden">
+    <div className="relative w-full min-h-screen flex items-center bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 overflow-hidden">
       {/* Background Animation */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute w-96 h-96 bg-white rounded-full blur-3xl -top-20 -left-20 animate-pulse" />

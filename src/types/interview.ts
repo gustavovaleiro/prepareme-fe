@@ -1,5 +1,8 @@
 export type InterviewRequest = {
   userId?: string;
+  userEmail?: string;
+  userNumber?: string;
+  interviewLanguage?: string;
   roleId: string;
   level: 'junior' | 'mid' | 'senior';
   language?: string;

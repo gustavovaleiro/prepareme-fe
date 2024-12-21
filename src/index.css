@@ -37,18 +37,6 @@
     position: relative;
   }
 
-  .section-indicator {
-    @apply fixed right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-50;
-  }
-
-  .section-indicator-dot {
-    @apply w-3 h-3 rounded-full bg-gray-300 transition-all duration-300 cursor-pointer;
-  }
-
-  .section-indicator-dot.active {
-    @apply bg-blue-600 scale-125;
-  }
-
   .input-field {
     @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors;
   }

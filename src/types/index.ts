@@ -11,6 +11,7 @@ export type ApiResponse<T> = {
 };
 
 export type InterviewLevel = 'junior' | 'mid' | 'senior';
+export type Language = 'portugues' | 'english' | 'espanol';
 
 export type Question = {
   id: string;
@@ -28,7 +29,7 @@ export type FormData = {
   role: string;
   level: InterviewLevel;
   email: string;
-  phone: string;
+  language: Language;
 };
 
 export type InterviewSession = {
