@@ -3,7 +3,7 @@ export type InterviewRequest = {
   userEmail?: string;
   userNumber?: string;
   interviewLanguage?: string;
-  roleId: string;
+  role: string;
   level: 'junior' | 'mid' | 'senior';
   language?: string;
 };
@@ -16,21 +16,23 @@ export type InterviewSession = {
   status: 'pending' | 'in_progress' | 'completed';
   createdAt: string;
   updatedAt: string;
+  questions: Question[];
 };
 
 export type Question = {
   id: string;
-  sessionId: string;
-  text: string;
+  content: string;
   category: string;
-  order: number;
-  timeLimit?: number;
-  topic: string;
+  roles: string[];
+  keywords: string[];
+  language: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type Answer = {
   questionId: string;
-  text: string;
+  content: string;
   duration?: number;
 };
 

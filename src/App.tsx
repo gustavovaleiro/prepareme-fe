@@ -4,9 +4,10 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/layout/ProtectedRoute';
-import { LandingPage } from './pages/LandingPage';
-import { AuthPage } from './pages/AuthPage';
-import { DashboardPage } from './pages/DashboardPage';
+// Lazy load pages
+const LandingPage = React.lazy(() => import('./pages/LandingPage'));
+const AuthPage = React.lazy(() => import('./pages/AuthPage'));
+const DashboardPage = React.lazy(() => import('./pages/DashboardPage'));
 
 export default function App() {
   const { t, i18n } = useTranslation();

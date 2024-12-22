@@ -25,15 +25,14 @@ function InterviewFlow() {
         userEmail: formData.email,
         userNumber: formData.phone,
         interviewLanguage: formData.language,
-        roleId: formData.role,
+        role: formData.role,
         level: formData.level,
       });
       
       if (response.data) {
         setSessionId(response.data.id);
-        const questionsResponse = await interviewService.getQuestions(response.data.id);
-        if (questionsResponse.data) {
-          setQuestions(questionsResponse.data);
+        if (response.data.questions ) {
+          setQuestions(response.data.questions);
           setInterviewState('questions');
         }
       }
@@ -46,6 +45,7 @@ function InterviewFlow() {
 
   const handleAnswersComplete = (completedAnswers: Answer[]) => {
     setAnswers(completedAnswers);
+
     setInterviewState('review');
   };
 
@@ -58,7 +58,8 @@ function InterviewFlow() {
   const handleSubmitFinal = async () => {
     try {
       setIsLoading(true);
-      const response = await interviewService.getFeedback(sessionId);
+      const response = await interviewService.submitAnswer( sessionId, answers);
+    
       if (response.data) {
         setFeedback(response.data);
         setInterviewState('feedback');
