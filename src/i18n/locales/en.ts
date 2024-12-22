@@ -63,6 +63,15 @@ export default {
         companiesLabel: 'Partner Companies',
       },
     },
+    interview:{
+      progress: "Progress",
+      topic: "Topic",
+      answerPlaceHolder: "Your answer here",
+      previous: "previus",
+      next: "next",
+      finish: "finish"
+
+    },
     features: {
       title: 'Why Choose Us',
       subtitle: 'Comprehensive interview preparation tailored to your needs',

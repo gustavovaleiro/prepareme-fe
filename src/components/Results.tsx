@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { CheckCircle, Download } from 'lucide-react';
+import { Icon } from './icons/Icon';
 import type { Question, Answer } from '../types';
 
 type Props = {
@@ -13,7 +13,7 @@ export function Results({ questions, answers }: Props) {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="text-center mb-8">
-        <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+        <Icon name="CheckCircle" className="w-16 h-16 text-green-500 mx-auto mb-4" />
         <h2 className="text-2xl font-bold mb-2">{t('results.completed')}</h2>
         <p className="text-gray-600">{t('results.feedback')}</p>
       </div>
@@ -36,7 +36,7 @@ export function Results({ questions, answers }: Props) {
 
       <div className="flex justify-center">
         <button className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
-          <Download size={20} />
+          <Icon name="Download" size={20} />
           {t('results.download')}
         </button>
       </div>

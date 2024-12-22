@@ -1,43 +1,51 @@
 import { useTranslation } from 'react-i18next';
-import { Target, MessageSquare, BookOpen, Award, Users, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Icon } from './icons/Icon';
+import type { IconName } from './icons/Icon';
+
+interface Feature {
+  icon: IconName;
+  title: string;
+  description: string;
+  details: string;
+}
 
 export function Features() {
   const { t } = useTranslation();
 
-  const features = [
+  const features: Feature[] = [
     {
-      icon: Target,
+      icon: 'Target',
       title: t('features.personalized'),
       description: t('features.personalizedDesc'),
       details: t('features.personalizedDetails'),
     },
     {
-      icon: MessageSquare,
+      icon: 'MessageSquare',
       title: t('features.feedback'),
       description: t('features.feedbackDesc'),
       details: t('features.feedbackDetails'),
     },
     {
-      icon: BookOpen,
+      icon: 'BookOpen',
       title: t('features.resources'),
       description: t('features.resourcesDesc'),
       details: t('features.resourcesDetails'),
     },
     {
-      icon: Award,
+      icon: 'Award',
       title: t('features.expertise'),
       description: t('features.expertiseDesc'),
       details: t('features.expertiseDetails'),
     },
     {
-      icon: Users,
+      icon: 'Users',
       title: t('features.community'),
       description: t('features.communityDesc'),
       details: t('features.communityDetails'),
     },
     {
-      icon: TrendingUp,
+      icon: 'TrendingUp',
       title: t('features.success'),
       description: t('features.successDesc'),
       details: t('features.successDetails'),
@@ -67,7 +75,10 @@ export function Features() {
               className="group relative bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden"
             >
               <div className="p-8">
-                <feature.icon className="w-12 h-12 text-blue-600 mb-6 group-hover:scale-110 transition-transform duration-300" />
+                <Icon 
+                  name={feature.icon}
+                  className="w-12 h-12 text-blue-600 mb-6 group-hover:scale-110 transition-transform duration-300"
+                />
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">
                   {feature.title}
                 </h3>

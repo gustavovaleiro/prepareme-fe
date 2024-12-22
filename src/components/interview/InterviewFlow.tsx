@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { InterviewForm } from './InterviewForm';
 import { QuestionSession } from './QuestionSession';
-import { ReviewAnswers } from './ReviewAnswers';
 import { FeedbackDisplay } from './FeedbackDisplay';
 import { interviewService } from '../../services/interviews';
-import type { InterviewState, Question, Answer, InterviewFeedback, FormData } from '../../types/interview';
+import type { InterviewFlowState, Question, Answer, InterviewFeedback, FormData } from '../../types/interview';
 import { useAuth } from '../../contexts/AuthContext';
 import { v4 as uuidv4 } from 'uuid';
 
 function InterviewFlow() {
-  const [interviewState, setInterviewState] = useState<InterviewState>('initial');
+  const [interviewState, setInterviewState] = useState<InterviewFlowState>('initial');
   const [sessionId, setSessionId] = useState<string>('');
   const [questions, setQuestions] = useState<Question[]>([]);
   const [answers, setAnswers] = useState<Answer[]>([]);
@@ -21,7 +20,7 @@ function InterviewFlow() {
     try {
       setIsLoading(true);
       const response = await interviewService.createSession({
-        userId: isAuthenticated ? user?.id : uuidv4(),
+        userId: isAuthenticated ? user?.id : null ,
         userEmail: formData.email,
         userNumber: formData.phone,
         interviewLanguage: formData.language,
@@ -43,25 +42,15 @@ function InterviewFlow() {
     }
   };
 
-  const handleAnswersComplete = (completedAnswers: Answer[]) => {
+  const handleAnswersComplete = async (completedAnswers: Answer[]) => {
     setAnswers(completedAnswers);
 
-    setInterviewState('review');
-  };
-
-  const handleAnswersEdit = () => {
-    setInterviewState('questions');
-  };
-
-  /* todo aqui nao é feedback propriemente dito, pra exibir feedback tem que logar, gastar credito etc..
-      // antes de pensar em status de feedback, tem que mandar logar/criar user definir melhor estrategia, criar componentes separados?*/
-  const handleSubmitFinal = async () => {
     try {
       setIsLoading(true);
       const response = await interviewService.submitAnswer( sessionId, answers);
     
       if (response.data) {
-        setFeedback(response.data);
+        setFeedback(response.data.feedback);
         setInterviewState('feedback');
       }
     } catch (error) {
@@ -71,6 +60,8 @@ function InterviewFlow() {
     }
   };
 
+
+ 
   return (
     <div className="min-h-screen bg-gray-50">
       {interviewState === 'initial' && (
@@ -85,24 +76,17 @@ function InterviewFlow() {
         />
       )}
       
-      {interviewState === 'review' && (
-        <ReviewAnswers
-          questions={questions}
-          answers={answers}
-          onEdit={handleAnswersEdit}
-          onSubmit={handleSubmitFinal}
-          isLoading={isLoading}
-        />
+      {interviewState === 'completed' && !isAuthenticated  && (
+        <InterviewAuth />
       )}
-      
-      {/* todo aqui nao é feedback propriemente dito, pra exibir feedback tem que logar, gastar credito etc..
-      // antes de pensar em status de feedback, tem que mandar logar/criar user definir melhor estrategia, criar componentes separados?*/}
-
-      {interviewState === 'feedback' && feedback && (
+      {interviewState === 'completed' && !feedback  && (
+        <InterviewBuyFeedback />
+      )}
+      {interviewState === 'completed' && isAuthenticated && feedback && (
         <FeedbackDisplay feedback={feedback} />
       )}
     </div>
   );
-}
 
+}
 export default InterviewFlow;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { Search, Send, Briefcase, User, Mail, Phone } from 'lucide-react';
+import { Icon } from './icons/Icon';
 import { motion } from 'framer-motion';
 import { InterviewSession } from './InterviewSession';
 import { Results } from './Results';
@@ -78,7 +78,7 @@ export function InterviewForm() {
                 <div className="space-y-6">
                   <div>
                     <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                      <User className="w-4 h-4 mr-2" />
+                      <Icon name="User" className="w-4 h-4 mr-2" />
                       {t('form.name')}
                     </label>
                     <input
@@ -90,12 +90,12 @@ export function InterviewForm() {
 
                   <div>
                     <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                      <Briefcase className="w-4 h-4 mr-2" />
+                      <Icon name="Briefcase" className="w-4 h-4 mr-2" />
                       {t('form.role')}
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Search className="h-5 w-5 text-gray-400" />
+                        <Icon name="Search" className="h-5 w-5 text-gray-400" />
                       </div>
                       <input
                         {...register('role', { required: true })}
@@ -116,7 +116,7 @@ export function InterviewForm() {
                 <div className="space-y-6">
                   <div>
                     <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                      <Mail className="w-4 h-4 mr-2" />
+                      <Icon name="Mail" className="w-4 h-4 mr-2" />
                       {t('form.email')}
                     </label>
                     <input
@@ -129,7 +129,7 @@ export function InterviewForm() {
 
                   <div>
                     <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                      <Phone className="w-4 h-4 mr-2" />
+                      <Icon name="Phone" className="w-4 h-4 mr-2" />
                       {t('form.phone')}
                     </label>
                     <input
@@ -163,7 +163,7 @@ export function InterviewForm() {
                 whileTap={{ scale: 0.98 }}
               >
                 {t('form.start')}
-                <Send className="w-5 h-5" />
+                <Icon name="Send" className="w-5 h-5" />
               </motion.button>
             </form>
           </div>

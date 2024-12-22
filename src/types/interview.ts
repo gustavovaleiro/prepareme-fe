@@ -1,5 +1,5 @@
 export type InterviewRequest = {
-  userId?: string;
+  userId?: string | null;
   userEmail?: string;
   userNumber?: string;
   interviewLanguage?: string;
@@ -62,4 +62,4 @@ export type InterviewFeedback = {
   }>;
 };
 
-export type InterviewState = 'initial' | 'questions' | 'review' | 'feedback';
+export type InterviewFlowState = 'initial' | 'questions' | 'completed';

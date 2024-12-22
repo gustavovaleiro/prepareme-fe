@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { Icon } from '../components/icons/Icon';
 import { LoginForm } from '../components/auth/LoginForm';
 import { RegisterForm } from '../components/auth/RegisterForm';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
@@ -21,7 +21,7 @@ export function AuthPage() {
         to="/" 
         className="absolute top-4 left-4 flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
       >
-        <ArrowLeft className="w-4 h-4" />
+        <Icon name="ArrowLeft" className="w-4 h-4" />
         {t('common.backToHome')}
       </Link>
       

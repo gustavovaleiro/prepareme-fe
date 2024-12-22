@@ -1,7 +1,6 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Award, TrendingUp, BookOpen, AlertCircle } from 'lucide-react';
+import { Icon } from '../icons/Icon';
 import type { InterviewFeedback, TopicEvaluation } from '../../types/interview';
 
 interface Props {
@@ -67,7 +66,8 @@ function TopicCard({ evaluation }: { evaluation: TopicEvaluation }) {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
               >
-                {resource.type === 'video' ? '📺' : '📚'} {resource.title}
+                <Icon name={resource.type === 'video' ? 'Video' : 'Book'} size={16} />
+                {resource.title}
               </a>
             ))}
           </div>
@@ -88,7 +88,7 @@ export function FeedbackDisplay({ feedback }: Props) {
           animate={{ opacity: 1, scale: 1 }}
           className="inline-flex items-center justify-center w-20 h-20 bg-blue-100 rounded-full mb-6"
         >
-          <Award className="w-10 h-10 text-blue-600" />
+          <Icon name="Award" className="w-10 h-10 text-blue-600" />
         </motion.div>
         <h2 className="text-3xl font-bold text-gray-900 mb-4">
           {t('feedback.overallScore')}: {feedback.overallScore}/10
@@ -105,12 +105,13 @@ export function FeedbackDisplay({ feedback }: Props) {
           transition={{ delay: 0.2 }}
           className="bg-white rounded-lg shadow-md p-6"
         >
-          <TrendingUp className="w-8 h-8 text-green-600 mb-4" />
+          <Icon name="TrendingUp" className="w-8 h-8 text-green-600 mb-4" />
           <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('feedback.strengths')}</h3>
           <ul className="space-y-2">
             {feedback.strengths.map((strength, index) => (
               <li key={index} className="flex items-start gap-2 text-gray-700">
-                <span className="text-green-500">✓</span> {strength}
+                <Icon name="Check" className="w-4 h-4 text-green-500 mt-1" />
+                {strength}
               </li>
             ))}
           </ul>
@@ -122,12 +123,13 @@ export function FeedbackDisplay({ feedback }: Props) {
           transition={{ delay: 0.3 }}
           className="bg-white rounded-lg shadow-md p-6"
         >
-          <AlertCircle className="w-8 h-8 text-yellow-600 mb-4" />
+          <Icon name="AlertCircle" className="w-8 h-8 text-yellow-600 mb-4" />
           <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('feedback.improvements')}</h3>
           <ul className="space-y-2">
             {feedback.improvements.map((improvement, index) => (
               <li key={index} className="flex items-start gap-2 text-gray-700">
-                <span className="text-yellow-500">!</span> {improvement}
+                <Icon name="AlertTriangle" className="w-4 h-4 text-yellow-500 mt-1" />
+                {improvement}
               </li>
             ))}
           </ul>
@@ -139,12 +141,13 @@ export function FeedbackDisplay({ feedback }: Props) {
           transition={{ delay: 0.4 }}
           className="bg-white rounded-lg shadow-md p-6"
         >
-          <BookOpen className="w-8 h-8 text-blue-600 mb-4" />
+          <Icon name="BookOpen" className="w-8 h-8 text-blue-600 mb-4" />
           <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('feedback.recommendations')}</h3>
           <ul className="space-y-2">
             {feedback.recommendations.map((recommendation, index) => (
               <li key={index} className="flex items-start gap-2 text-gray-700">
-                <span className="text-blue-500">→</span> {recommendation}
+                <Icon name="ArrowRight" className="w-4 h-4 text-blue-500 mt-1" />
+                {recommendation}
               </li>
             ))}
           </ul>

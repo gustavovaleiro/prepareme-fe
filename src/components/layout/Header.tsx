@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LogIn, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Icon } from '../icons/Icon';
 import { LanguageSwitcher } from '../LanguageSwitcher';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -38,12 +38,12 @@ export function Header() {
           >
             {isAuthenticated ? (
               <>
-                <LogOut className="w-4 h-4" />
+                <Icon name="LogOut" className="w-4 h-4" />
                 {t('header.signOut')}
               </>
             ) : (
               <>
-                <LogIn className="w-4 h-4" />
+                <Icon name="LogIn" className="w-4 h-4" />
                 {t('header.signIn')}
               </>
             )}

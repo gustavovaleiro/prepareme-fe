@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, User } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Icon } from '../icons/Icon';
 import { useAuth } from '../../contexts/AuthContext';
 import { authService } from '../../services/auth';
 import type { RegisterRequest } from '../../types/auth';
@@ -38,7 +38,7 @@ export function RegisterForm() {
 
       <div>
         <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-          <User className="w-4 h-4 mr-2" />
+          <Icon name="User" className="w-4 h-4 mr-2" />
           {t('auth.fullName')}
         </label>
         <input
@@ -50,7 +50,7 @@ export function RegisterForm() {
 
       <div>
         <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-          <Mail className="w-4 h-4 mr-2" />
+          <Icon name="Mail" className="w-4 h-4 mr-2" />
           {t('auth.email')}
         </label>
         <input
@@ -63,7 +63,7 @@ export function RegisterForm() {
 
       <div>
         <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-          <Lock className="w-4 h-4 mr-2" />
+          <Icon name="Lock" className="w-4 h-4 mr-2" />
           {t('auth.password')}
         </label>
         <input

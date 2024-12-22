@@ -1,14 +1,14 @@
 import { useTranslation } from 'react-i18next';
-import { Rocket, ArrowRight, Star, Users, Trophy } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Icon } from './icons/Icon';
 
 export function Hero() {
   const { t } = useTranslation();
 
   const stats = [
-    { icon: Users, value: '10K+', label: 'Success Stories' },
-    { icon: Star, value: '98%', label: 'Success Rate' },
-    { icon: Trophy, value: '150+', label: 'Top Companies' },
+    { icon: 'Users', value: '10K+', label: 'Success Stories' },
+    { icon: 'Star', value: '98%', label: 'Success Rate' },
+    { icon: 'Trophy', value: '150+', label: 'Top Companies' },
   ];
 
   return (
@@ -28,7 +28,7 @@ export function Hero() {
             className="text-left"
           >
             <div className="inline-flex items-center px-4 py-2 bg-blue-500/20 rounded-full text-blue-100 mb-6">
-              <Star className="w-4 h-4 mr-2" />
+              <Icon name="Star" className="w-4 h-4 mr-2" />
               <span>Trusted by Industry Leaders</span>
             </div>
             
@@ -47,7 +47,7 @@ export function Hero() {
               whileTap={{ scale: 0.95 }}
             >
               {t('hero.cta')}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <Icon name="ArrowRight" className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </motion.a>
           </motion.div>
 
@@ -67,7 +67,7 @@ export function Hero() {
                   className="text-center"
                 >
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-2xl backdrop-blur-sm mb-4">
-                    <stat.icon className="w-8 h-8 text-white" />
+                    <Icon name={stat.icon} className="w-8 h-8 text-white" />
                   </div>
                   <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
                   <div className="text-blue-100">{stat.label}</div>

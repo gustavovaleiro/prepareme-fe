@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Globe } from 'lucide-react';
+import { Icon } from './icons/Icon';
 
 export function LanguageSwitcher() {
   const { i18n } = useTranslation();
@@ -12,10 +12,8 @@ export function LanguageSwitcher() {
 
   return (
     <div className="relative group">
-      <button
-        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:text-gray-900"
-      >
-        <Globe size={20} />
+      <button className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:text-gray-900">
+        <Icon name="Globe" size={20} />
         <span>{languages.find(lang => lang.code === i18n.language)?.label || 'Language'}</span>
       </button>
       <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">

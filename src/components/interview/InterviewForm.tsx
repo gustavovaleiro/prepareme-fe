@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
-import { Briefcase, Languages, Mail, Phone, User } from 'lucide-react';
+import { Icon } from '../icons/Icon';
 import type { FormData } from '../../types/interview';
 import { useEffect } from 'react';
 
@@ -14,7 +14,6 @@ export function InterviewForm({ onSubmit, isLoading = false }: Props) {
   const { t, i18n } = useTranslation();
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormData>();
 
-  // Atualizando o valor do campo de idioma após a montagem do componente
   useEffect(() => {
     setValue('language', i18n.language);
   }, [i18n.language, setValue]);
@@ -24,6 +23,7 @@ export function InterviewForm({ onSubmit, isLoading = false }: Props) {
     { code: 'pt-BR', label: 'Português' },
     { code: 'es', label: 'Español' }
   ];
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       <motion.div
@@ -44,7 +44,7 @@ export function InterviewForm({ onSubmit, isLoading = false }: Props) {
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <User className="w-4 h-4 mr-2" />
+                <Icon name="User" className="w-4 h-4 mr-2" />
                 {t('form.name')}
               </label>
               <input
@@ -56,7 +56,7 @@ export function InterviewForm({ onSubmit, isLoading = false }: Props) {
 
             <div>
               <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <Mail className="w-4 h-4 mr-2" />
+                <Icon name="Mail" className="w-4 h-4 mr-2" />
                 {t('form.email')}
               </label>
               <input
@@ -69,19 +69,24 @@ export function InterviewForm({ onSubmit, isLoading = false }: Props) {
 
             <div>
               <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <Briefcase className="w-4 h-4 mr-2" />
+                <Icon name="Briefcase" className="w-4 h-4 mr-2" />
                 {t('form.role')}
               </label>
-              <input
-                {...register('role', { required: true })}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Software Engineer"
-              />
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Icon name="Search" className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  {...register('role', { required: true })}
+                  className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Software Engineer"
+                />
+              </div>
             </div>
 
             <div>
               <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <Phone className="w-4 h-4 mr-2" />
+                <Icon name="Phone" className="w-4 h-4 mr-2" />
                 {t('form.phone')}
               </label>
               <input
@@ -100,9 +105,9 @@ export function InterviewForm({ onSubmit, isLoading = false }: Props) {
                 {...register('level', { required: true })}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
-                <option value="junior">{t('form.levels.junior')}</option>
-                <option value="mid">{t('form.levels.mid')}</option>
-                <option value="senior">{t('form.levels.senior')}</option>
+                <option value="beginner">{t('form.levels.junior')}</option>
+                <option value="intermediate">{t('form.levels.mid')}</option>
+                <option value="advanced">{t('form.levels.senior')}</option>
               </select>
             </div>
 
@@ -121,10 +126,7 @@ export function InterviewForm({ onSubmit, isLoading = false }: Props) {
                 ))}
               </select>
             </div>
-
           </div>
-
-          
 
           <motion.button
             type="submit"
@@ -134,6 +136,7 @@ export function InterviewForm({ onSubmit, isLoading = false }: Props) {
             whileTap={{ scale: 0.98 }}
           >
             {isLoading ? t('common.loading') : t('form.start')}
+            <Icon name="Send" className="w-5 h-5" />
           </motion.button>
         </form>
       </motion.div>

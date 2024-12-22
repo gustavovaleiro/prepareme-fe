@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Edit2, Check, Save } from 'lucide-react';
+import { Icon } from '../icons/Icon';
 import type { Question, Answer } from '../../types/interview';
 
 interface Props {
@@ -71,14 +71,14 @@ export function ReviewAnswers({ questions, answers, onEdit, onSubmit, isLoading 
                         onClick={() => setEditingId(question.id)}
                         className="text-gray-500 hover:text-gray-700 p-2"
                       >
-                        <Edit2 size={18} />
+                        <Icon name="Edit2" size={18} />
                       </button>
                     ) : (
                       <button
                         onClick={handleSaveEdit}
                         className="text-green-500 hover:text-green-700 p-2"
                       >
-                        <Save size={18} />
+                        <Icon name="Save" size={18} />
                       </button>
                     )}
                   </div>
@@ -104,7 +104,7 @@ export function ReviewAnswers({ questions, answers, onEdit, onSubmit, isLoading 
               onClick={onEdit}
               className="flex items-center gap-2 px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
             >
-              <Edit2 size={20} />
+              <Icon name="Edit2" size={20} />
               {t('review.edit')}
             </button>
             
@@ -114,7 +114,7 @@ export function ReviewAnswers({ questions, answers, onEdit, onSubmit, isLoading 
               className="flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? t('common.loading') : t('review.submit')}
-              <Check size={20} />
+              <Icon name="Check" size={20} />
             </button>
           </div>
         </motion.div>

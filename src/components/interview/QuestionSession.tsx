@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, AlertCircle } from 'lucide-react';
+import { Icon } from '../icons/Icon';
 import type { Question, Answer } from '../../types/interview';
 
 interface Props {
@@ -14,9 +14,8 @@ export function QuestionSession({ questions, initialAnswers, onComplete }: Props
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>(initialAnswers);
-  const [showConfirm, setShowConfirm] = useState(false);
 
-  const handleAnswerChange = (text: string) => {
+  const handleAnswerChange = (content: string) => {
     const newAnswers = [...answers];
     const existingIndex = answers.findIndex(
       a => a.questionId === questions[currentIndex].id
@@ -25,12 +24,12 @@ export function QuestionSession({ questions, initialAnswers, onComplete }: Props
     if (existingIndex >= 0) {
       newAnswers[existingIndex] = {
         ...newAnswers[existingIndex],
-        text,
+        content,
       };
     } else {
       newAnswers.push({
         questionId: questions[currentIndex].id,
-        text,
+        content,
       });
     }
     
@@ -38,14 +37,14 @@ export function QuestionSession({ questions, initialAnswers, onComplete }: Props
   };
 
   const getCurrentAnswer = () => {
-    return answers.find(a => a.questionId === questions[currentIndex].id)?.text || '';
+    return answers.find(a => a.questionId === questions[currentIndex].id)?.content || '';
   };
 
   const handleNext = () => {
     if (currentIndex < questions.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      setShowConfirm(true);
+      handleComplete();
     }
   };
 
@@ -71,14 +70,9 @@ export function QuestionSession({ questions, initialAnswers, onComplete }: Props
         <div className="p-8">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <div className="text-sm text-gray-500 mb-2">
-                {t('interview.progress', {
-                  current: currentIndex + 1,
-                  total: questions.length,
-                })}
-              </div>
+            
               <div className="text-sm text-blue-600 font-medium">
-                {t('interview.topic')}: {questions[currentIndex].topic}
+                {t('interview.topic')}: {questions[currentIndex].category}
               </div>
             </div>
             <div className="w-32 h-2 bg-gray-200 rounded-full">
@@ -90,7 +84,7 @@ export function QuestionSession({ questions, initialAnswers, onComplete }: Props
           </div>
 
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-            {questions[currentIndex].text}
+            {questions[currentIndex].content}
           </h2>
 
           <textarea
@@ -106,10 +100,12 @@ export function QuestionSession({ questions, initialAnswers, onComplete }: Props
               disabled={currentIndex === 0}
               className="flex items-center gap-2 px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              <ChevronLeft size={20} />
+              <Icon name="ChevronLeft" size={20} />
               {t('interview.previous')}
             </button>
-            
+            <div className="flex items-center text-sm text-gray-500 leading-none">
+               {(currentIndex + 1)} / {questions.length}
+              </div>
             <button
               onClick={handleNext}
               className="flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -117,53 +113,13 @@ export function QuestionSession({ questions, initialAnswers, onComplete }: Props
               {currentIndex === questions.length - 1
                 ? t('interview.finish')
                 : t('interview.next')}
-              <ChevronRight size={20} />
+              <Icon name="ChevronRight" size={20} />
             </button>
           </div>
         </div>
       </motion.div>
 
-      <AnimatePresence>
-        {showConfirm && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
-          >
-            <motion.div
-              initial={{ scale: 0.95 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.95 }}
-              className="bg-white rounded-lg p-6 max-w-md w-full"
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <AlertCircle className="w-6 h-6 text-blue-600" />
-                <h3 className="text-lg font-semibold">
-                  {t('interview.confirmation')}
-                </h3>
-              </div>
-              <p className="text-gray-600 mb-6">
-                {t('interview.confirmationText')}
-              </p>
-              <div className="flex justify-end gap-4">
-                <button
-                  onClick={() => setShowConfirm(false)}
-                  className="px-4 py-2 text-gray-600 hover:text-gray-800"
-                >
-                  {t('common.cancel')}
-                </button>
-                <button
-                  onClick={handleComplete}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                >
-                  {t('common.confirm')}
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+  
     </div>
   );
 }

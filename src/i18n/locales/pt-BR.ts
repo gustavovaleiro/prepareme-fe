@@ -28,6 +28,7 @@ export default {
       start: "Iniciar Entrevista",
       loading: "Carregando..."
     },
+    
     auth: {
       welcome: 'Bem-vindo de volta',
       createAccount: 'Criar uma conta',
@@ -62,6 +63,14 @@ export default {
         companies: '500+',
         companiesLabel: 'Empresas Parceiras'
       }
+    },
+    interview:{
+      progress: "Progresso",
+      topic: "Tópico",
+      answerPlaceholder: "Escreva sua resposta aqui",
+      previous: "anterior",
+      next: "próxima",
+      finish: "finalizar"
     },
     features: {
       title: 'Por Que Nos Escolher',
