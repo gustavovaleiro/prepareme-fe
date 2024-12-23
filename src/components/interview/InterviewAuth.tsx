@@ -8,9 +8,10 @@ import { RegisterForm } from '../auth/RegisterForm';
 interface Props {
   email?: string;
   phone?: string;
+  name?: string;
 }
 
-export function InterviewAuth({ email, phone }: Props) {
+export function InterviewAuth({ email, phone, name }: Props) {
   const { t } = useTranslation();
   const [isLogin, setIsLogin] = useState(false);
 
@@ -62,7 +63,7 @@ export function InterviewAuth({ email, phone }: Props) {
           {isLogin ? (
             <LoginForm initialEmail={email} />
           ) : (
-            <RegisterForm initialEmail={email} initialPhone={phone} />
+            <RegisterForm  initialName={name} initialEmail={email} initialPhone={phone} />
           )}
         </div>
       </motion.div>

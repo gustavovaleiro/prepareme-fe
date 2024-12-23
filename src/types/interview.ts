@@ -16,9 +16,13 @@ export type InterviewSession = {
   status: 'pending' | 'in_progress' | 'completed';
   createdAt: string;
   updatedAt: string;
-  questions: Question[];
+  questions: InterviewQuestion[];
 };
 
+export interface InterviewQuestion {
+  question: Question;
+  userAnswer: Answer | null;
+}
 export type Question = {
   id: string;
   content: string;

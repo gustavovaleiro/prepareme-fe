@@ -34,7 +34,8 @@ function InterviewFlow() {
       if (response.data) {
         setSessionId(response.data.id);
         if (response.data.questions) {
-          setQuestions(response.data.questions);
+          const  quest = response.data.questions.map( q => q.question);
+          setQuestions(quest);
           setInterviewState('questions');
         }
       }

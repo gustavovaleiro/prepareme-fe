@@ -3,11 +3,11 @@ import type { LoginRequest, RegisterRequest, AuthResponse } from '../types/auth'
 
 export const authService = {
   async login(data: LoginRequest) {
-    return apiClient.post<AuthResponse>('/auth/login', data);
+    return apiClient.post<AuthResponse>('/api/v1/auth/login', data);
   },
 
   async register(data: RegisterRequest) {
-    return apiClient.post<AuthResponse>('/auth/register', data);
+    return apiClient.post<AuthResponse>('/api/v1/auth/register', data);
   },
 
   setToken(token: string) {

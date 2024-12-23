@@ -10,14 +10,16 @@ import type { RegisterRequest } from '../../types/auth';
 interface Props {
   initialEmail?: string;
   initialPhone?: string;
+  initialName?: string;
 }
 
-export function RegisterForm({ initialEmail = '', initialPhone = '' }: Props) {
+export function RegisterForm({ initialEmail = '', initialPhone = '' , initialName = ''}: Props) {
   const { t } = useTranslation();
   const { register, handleSubmit, formState: { errors } } = useForm<RegisterRequest>({
     defaultValues: {
       email: initialEmail,
-      phone: initialPhone
+      phone: initialPhone,
+      name: initialName
     }
   });
   const navigate = useNavigate();
