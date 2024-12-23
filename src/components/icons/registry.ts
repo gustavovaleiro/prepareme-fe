@@ -40,6 +40,10 @@ export const iconRegistry = {
     TrendingUp: () => import('lucide-react/dist/esm/icons/trending-up'),
     Video: () => import('lucide-react/dist/esm/icons/video'),
     Book: () => import('lucide-react/dist/esm/icons/book'),
+
+
+    FileText: () => import('lucide-react/dist/esm/icons/file-text'),
+    CreditCard: () => import('lucide-react/dist/esm/icons/credit-card'),
   } as const;
   
   export type IconName = keyof typeof iconRegistry;

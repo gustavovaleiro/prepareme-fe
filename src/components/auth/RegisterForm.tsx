@@ -7,9 +7,19 @@ import { useAuth } from '../../contexts/AuthContext';
 import { authService } from '../../services/auth';
 import type { RegisterRequest } from '../../types/auth';
 
-export function RegisterForm() {
+interface Props {
+  initialEmail?: string;
+  initialPhone?: string;
+}
+
+export function RegisterForm({ initialEmail = '', initialPhone = '' }: Props) {
   const { t } = useTranslation();
-  const { register, handleSubmit, formState: { errors } } = useForm<RegisterRequest>();
+  const { register, handleSubmit, formState: { errors } } = useForm<RegisterRequest>({
+    defaultValues: {
+      email: initialEmail,
+      phone: initialPhone
+    }
+  });
   const navigate = useNavigate();
   const { login } = useAuth();
   const [error, setError] = React.useState('');
@@ -58,6 +68,19 @@ export function RegisterForm() {
           type="email"
           className="input-field"
           placeholder={t('auth.emailPlaceholder')}
+        />
+      </div>
+
+      <div>
+        <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
+          <Icon name="Phone" className="w-4 h-4 mr-2" />
+          {t('auth.phone')}
+        </label>
+        <input
+          {...register('phone')}
+          type="tel"
+          className="input-field"
+          placeholder={t('auth.phonePlaceholder')}
         />
       </div>
 

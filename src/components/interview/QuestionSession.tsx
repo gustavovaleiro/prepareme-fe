@@ -14,33 +14,40 @@ export function QuestionSession({ questions, initialAnswers, onComplete }: Props
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>(initialAnswers);
+  const [currentDraft, setCurrentDraft] = useState('');
 
-  const handleAnswerChange = (content: string) => {
-    const newAnswers = [...answers];
-    const existingIndex = answers.findIndex(
-      a => a.questionId === questions[currentIndex].id
-    );
-    
-    if (existingIndex >= 0) {
-      newAnswers[existingIndex] = {
-        ...newAnswers[existingIndex],
-        content,
-      };
-    } else {
-      newAnswers.push({
+  // Initialize draft answer from existing answers
+  React.useEffect(() => {
+    const existingAnswer = answers.find(a => a.questionId === questions[currentIndex].id);
+    setCurrentDraft(existingAnswer?.content || '');
+  }, [currentIndex, answers, questions]);
+
+  const saveCurrentAnswer = () => {
+    if (!currentDraft.trim()) return;
+
+    setAnswers(prev => {
+      const newAnswers = [...prev];
+      const existingIndex = newAnswers.findIndex(
+        a => a.questionId === questions[currentIndex].id
+      );
+      
+      const answer = {
         questionId: questions[currentIndex].id,
-        content,
-      });
-    }
-    
-    setAnswers(newAnswers);
-  };
+        content: currentDraft.trim(),
+      };
 
-  const getCurrentAnswer = () => {
-    return answers.find(a => a.questionId === questions[currentIndex].id)?.content || '';
+      if (existingIndex >= 0) {
+        newAnswers[existingIndex] = answer;
+      } else {
+        newAnswers.push(answer);
+      }
+      
+      return newAnswers;
+    });
   };
 
   const handleNext = () => {
+    saveCurrentAnswer();
     if (currentIndex < questions.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
@@ -49,12 +56,14 @@ export function QuestionSession({ questions, initialAnswers, onComplete }: Props
   };
 
   const handlePrevious = () => {
+    saveCurrentAnswer();
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
   };
 
   const handleComplete = () => {
+    saveCurrentAnswer();
     onComplete(answers);
   };
 
@@ -70,7 +79,6 @@ export function QuestionSession({ questions, initialAnswers, onComplete }: Props
         <div className="p-8">
           <div className="flex items-center justify-between mb-8">
             <div>
-            
               <div className="text-sm text-blue-600 font-medium">
                 {t('interview.topic')}: {questions[currentIndex].category}
               </div>
@@ -88,8 +96,8 @@ export function QuestionSession({ questions, initialAnswers, onComplete }: Props
           </h2>
 
           <textarea
-            value={getCurrentAnswer()}
-            onChange={(e) => handleAnswerChange(e.target.value)}
+            value={currentDraft}
+            onChange={(e) => setCurrentDraft(e.target.value)}
             className="w-full h-64 p-6 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none text-lg"
             placeholder={t('interview.answerPlaceholder')}
           />
@@ -104,8 +112,8 @@ export function QuestionSession({ questions, initialAnswers, onComplete }: Props
               {t('interview.previous')}
             </button>
             <div className="flex items-center text-sm text-gray-500 leading-none">
-               {(currentIndex + 1)} / {questions.length}
-              </div>
+              {currentIndex + 1} / {questions.length}
+            </div>
             <button
               onClick={handleNext}
               className="flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -118,8 +126,6 @@ export function QuestionSession({ questions, initialAnswers, onComplete }: Props
           </div>
         </div>
       </motion.div>
-
-  
     </div>
   );
 }

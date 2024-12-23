@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { InterviewForm } from './InterviewForm';
 import { QuestionSession } from './QuestionSession';
 import { FeedbackDisplay } from './FeedbackDisplay';
+import { InterviewAuth } from './InterviewAuth';
+import { InterviewBuyFeedback } from './InterviewBuyFeedback';
 import { interviewService } from '../../services/interviews';
 import type { InterviewFlowState, Question, Answer, InterviewFeedback, FormData } from '../../types/interview';
 import { useAuth } from '../../contexts/AuthContext';
-import { v4 as uuidv4 } from 'uuid';
 
 function InterviewFlow() {
   const [interviewState, setInterviewState] = useState<InterviewFlowState>('initial');
@@ -14,23 +15,25 @@ function InterviewFlow() {
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [feedback, setFeedback] = useState<InterviewFeedback | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const {user, isAuthenticated} = useAuth();
+  const [formData, setFormData] = useState<FormData | null>(null);
+  const { user, isAuthenticated } = useAuth();
 
-  const handleFormSubmit = async (formData: FormData) => {
+  const handleFormSubmit = async (data: FormData) => {
+    setFormData(data);
     try {
       setIsLoading(true);
       const response = await interviewService.createSession({
-        userId: isAuthenticated ? user?.id : null ,
-        userEmail: formData.email,
-        userNumber: formData.phone,
-        interviewLanguage: formData.language,
-        role: formData.role,
-        level: formData.level,
+        userId: isAuthenticated ? user?.id : null,
+        userEmail: data.email,
+        userNumber: data.phone,
+        interviewLanguage: data.language,
+        role: data.role,
+        level: data.level,
       });
       
       if (response.data) {
         setSessionId(response.data.id);
-        if (response.data.questions ) {
+        if (response.data.questions) {
           setQuestions(response.data.questions);
           setInterviewState('questions');
         }
@@ -44,14 +47,12 @@ function InterviewFlow() {
 
   const handleAnswersComplete = async (completedAnswers: Answer[]) => {
     setAnswers(completedAnswers);
-
     try {
       setIsLoading(true);
-      const response = await interviewService.submitAnswer( sessionId, answers);
+      const response = await interviewService.submitAnswer( sessionId, completedAnswers);
     
-      if (response.data) {
-        setFeedback(response.data.feedback);
-        setInterviewState('feedback');
+      if (!response.error) {
+        setInterviewState('completed');
       }
     } catch (error) {
       console.error('Error getting feedback:', error);
@@ -60,8 +61,24 @@ function InterviewFlow() {
     }
   };
 
+  const handleGenerateFeedback = async () => {
+    try {
+      setIsLoading(true);
+      const response = await interviewService.getFeedback(sessionId);
+      if (response.data) {
+        setFeedback(response.data);
+      }
+    } catch (error) {
+      console.error('Error getting feedback:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
- 
+  const handleBuyCredits = () => {
+    // Will be implemented later
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {interviewState === 'initial' && (
@@ -76,17 +93,26 @@ function InterviewFlow() {
         />
       )}
       
-      {interviewState === 'completed' && !isAuthenticated  && (
-        <InterviewAuth />
+      {interviewState === 'completed' && !isAuthenticated && (
+        <InterviewAuth 
+          email={formData?.email}
+          phone={formData?.phone}
+        />
       )}
-      {interviewState === 'completed' && !feedback  && (
-        <InterviewBuyFeedback />
+
+      {interviewState === 'completed' && isAuthenticated && !feedback && (
+        <InterviewBuyFeedback
+          onGenerateFeedback={handleGenerateFeedback}
+          onBuyCredits={handleBuyCredits}
+          isLoading={isLoading}
+        />
       )}
+
       {interviewState === 'completed' && isAuthenticated && feedback && (
         <FeedbackDisplay feedback={feedback} />
       )}
     </div>
   );
-
 }
+
 export default InterviewFlow;

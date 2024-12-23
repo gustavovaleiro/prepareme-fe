@@ -6,10 +6,16 @@ import { Icon } from '../icons/Icon';
 import { useAuth } from '../../contexts/AuthContext';
 import { authService } from '../../services/auth';
 import type { LoginRequest } from '../../types/auth';
-
-export function LoginForm() {
+interface Props {
+  initialEmail?: string;
+}
+export function LoginForm({ initialEmail = '' }: Props) {
   const { t } = useTranslation();
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginRequest>();
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginRequest>({
+    defaultValues: {
+      email: initialEmail
+    }
+  });
   const navigate = useNavigate();
   const { login } = useAuth();
   const [error, setError] = React.useState('');
@@ -27,7 +33,6 @@ export function LoginForm() {
       setError(t('auth.errors.login'));
     }
   };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {error && (

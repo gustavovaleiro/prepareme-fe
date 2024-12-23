@@ -14,6 +14,7 @@ export type UserProfile = {
   experience: number;
   preferredLanguage: string;
   notifications: boolean;
+  credits: number;
 };
 
 export type UserStats = {

@@ -38,6 +38,8 @@ export default {
       fullName: 'Nome Completo',
       email: 'Email',
       password: 'Senha',
+      phone: 'Número de Telefone',
+      phonePlaceholder: '+55 (11) 00000-0000',
       namePlaceholder: 'João Silva',
       emailPlaceholder: 'voce@exemplo.com',
       passwordPlaceholder: '••••••••',
@@ -71,6 +73,10 @@ export default {
       previous: "anterior",
       next: "próxima",
       finish: "finalizar"
+    },
+    interviewAuth: {
+      title: 'Autenticação Necessária',
+      subtitle: 'Por favor, faça login ou crie uma conta para continuar com sua preparação para a entrevista',
     },
     features: {
       title: 'Por Que Nos Escolher',

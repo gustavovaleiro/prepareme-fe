@@ -36,6 +36,8 @@ export default {
       signOut: 'Sign Out',
       fullName: 'Full Name',
       email: 'Email',
+      phone: 'Phone Number',
+      phonePlaceholder: '+1 (555) 000-0000',
       password: 'Password',
       namePlaceholder: 'John Doe',
       emailPlaceholder: 'you@example.com',
@@ -71,6 +73,18 @@ export default {
       next: "next",
       finish: "finish"
 
+    },
+    feedback: {
+      ready: 'Interview Complete!',
+      description: 'Your interview responses have been recorded. Generate your personalized feedback report now.',
+      availableCredits: 'Available Credits',
+      creditsNeeded: 'Generating feedback requires {{count}} credit',
+      generate: 'Generate Feedback Report',
+      buyCredits: 'Add More Credits',
+    },
+    interviewAuth: {
+      title: 'Authentication Required',
+      subtitle: 'Please sign in or create an account to continue with your interview preparation',
     },
     features: {
       title: 'Why Choose Us',

@@ -28,6 +28,10 @@ export default {
       start: "Comenzar Entrevista",
       loading: "Cargando..."
     },
+    interviewAuth: {
+      title: 'Autenticación Requerida',
+      subtitle: 'Por favor, inicia sesión o crea una cuenta para continuar con tu preparación para la entrevista',
+    },
     auth: {
       welcome: 'Bienvenido de nuevo',
       createAccount: 'Crear una cuenta',
@@ -37,6 +41,8 @@ export default {
       fullName: 'Nombre Completo',
       email: 'Correo Electrónico',
       password: 'Contraseña',
+      phone: 'Número de Teléfono',
+      phonePlaceholder: '+34 600 000 000',
       namePlaceholder: 'Juan Pérez',
       emailPlaceholder: 'tu@ejemplo.com',
       passwordPlaceholder: '••••••••',
