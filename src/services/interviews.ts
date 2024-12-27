@@ -1,24 +1,26 @@
 import { apiClient } from './api/client';
-import type { 
-  InterviewSession, 
-  Answer, 
-  InterviewFeedback,
-  InterviewRequest 
-} from '../types/interview';
+import type { Interview, Answer } from '../types/interview';
+
+interface CreateInterviewRequest {
+  role: string;
+  level: string;
+  interviewLanguage: string;
+}
 
 export const interviewService = {
-  // Create a new interview session
-  createSession(data: InterviewRequest) {
-    return apiClient.post<InterviewSession>('/api/v1/interviews', data);
+  createSession(data: CreateInterviewRequest) {
+    return apiClient.post<Interview>('/api/v1/interviews', data);
   },
 
-  // Submit an answer for a question
-  submitAnswer(sessionId: string, answers: Answer[]) {
-    return apiClient.post<void>(`/api/v1/interviews/${sessionId}/answers`, answers);
+  getUserInterviews() {
+    return apiClient.get<Interview[]>('/api/v1/interviews');
   },
 
-  // Get feedback for completed interview
-  getFeedback(sessionId: string) {
-    return apiClient.get<InterviewFeedback>(`/api/v1/interviews/${sessionId}/feedback`);
+  submitAnswer(interviewId: string, answers: Answer[]) {
+    return apiClient.post<void>(`/api/v1/interviews/${interviewId}/answers`, { answers });
+  },
+
+  getInterview(interviewId: string) {
+    return apiClient.get<Interview>(`/api/v1/interviews/${interviewId}`);
   },
 };

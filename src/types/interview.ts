@@ -1,69 +1,56 @@
-export type InterviewRequest = {
-  userId?: string | null;
-  userEmail?: string;
-  userNumber?: string;
-  interviewLanguage?: string;
-  role: string;
-  level: 'junior' | 'mid' | 'senior';
-  language?: string;
-};
+export enum InterviewStatus {
+  PENDING = 'pending',
+  IN_PROGRESS = 'in_progress',
+  WAITING_FOR_FEEDBACK = 'waiting_feedback',
+  COMPLETED = 'completed'
+}
 
-export type InterviewSession = {
+export interface Question {
   id: string;
-  userId?: string;
-  roleId: string;
-  level: string;
-  status: 'pending' | 'in_progress' | 'completed';
-  createdAt: string;
-  updatedAt: string;
-  questions: InterviewQuestion[];
-};
+  content: string;
+  category: string;
+}
+
+export interface Answer {
+  questionId: string;
+  content: string;
+  submittedAt: Date;
+}
+
+export interface Feedback {
+  note: number;
+  positivePoints: string;
+  mistakes: string;
+  smells: string;
+  improveYourSkillsWith: string;
+  generatedAt: Date;
+}
 
 export interface InterviewQuestion {
   question: Question;
   userAnswer: Answer | null;
+  feedback: Feedback | null;
 }
-export type Question = {
+
+export interface Interview {
   id: string;
-  content: string;
-  category: string;
-  roles: string[];
-  keywords: string[];
-  language: string;
+  userId?: string;
+  userEmail: string;
+  userNumber?: string;
+  interviewLanguage: string;
+  role: string;
+  level: string;
+  status: InterviewStatus;
+  questions: InterviewQuestion[];
   createdAt: Date;
   updatedAt: Date;
-};
+}
 
-export type Answer = {
-  questionId: string;
-  content: string;
-  duration?: number;
-};
-
-export type TopicEvaluation = {
-  topic: string;
-  score: number;
-  understanding: 'excellent' | 'good' | 'fair' | 'needs_improvement';
-  recommendations: string[];
-  studyResources: {
-    title: string;
-    url: string;
-    type: 'article' | 'video' | 'course';
-  }[];
-};
-
-export type InterviewFeedback = {
-  sessionId: string;
-  overallScore: number;
-  topicEvaluations: TopicEvaluation[];
-  strengths: string[];
-  improvements: string[];
-  recommendations: string[];
-  answers: Array<{
-    questionId: string;
-    score: number;
-    feedback: string;
-  }>;
-};
-
-export type InterviewFlowState = 'initial' | 'questions' | 'completed';
+export interface FormData {
+  name?: string;
+  email?: string;
+  phone?: string;
+  role: string;
+  level: string;
+  language: string;
+}

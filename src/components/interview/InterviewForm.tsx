@@ -3,26 +3,16 @@ import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import { Icon } from '../icons/Icon';
 import type { FormData } from '../../types/interview';
-import { useEffect } from 'react';
 
 interface Props {
   onSubmit: (data: FormData) => void;
   isLoading?: boolean;
+  isAuthenticated?: boolean;
 }
 
-export function InterviewForm({ onSubmit, isLoading = false }: Props) {
-  const { t, i18n } = useTranslation();
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormData>();
-
-  useEffect(() => {
-    setValue('language', i18n.language);
-  }, [i18n.language, setValue]);
-
-  const languages = [
-    { code: 'en', label: 'English' },
-    { code: 'pt-BR', label: 'Português' },
-    { code: 'es', label: 'Español' }
-  ];
+export function InterviewForm({ onSubmit, isLoading = false, isAuthenticated = false }: Props) {
+  const { t } = useTranslation();
+  const { register, handleSubmit } = useForm<FormData>();
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
@@ -42,58 +32,57 @@ export function InterviewForm({ onSubmit, isLoading = false }: Props) {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <Icon name="User" className="w-4 h-4 mr-2" />
-                {t('form.name')}
-              </label>
-              <input
-                {...register('name', { required: true })}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="John Doe"
-              />
-            </div>
+            {!isAuthenticated && (
+              <>
+                <div>
+                  <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
+                    <Icon name="User" className="w-4 h-4 mr-2" />
+                    {t('form.name')}
+                  </label>
+                  <input
+                    {...register('name', { required: true })}
+                    className="input-field"
+                    placeholder={t('form.namePlaceholder')}
+                  />
+                </div>
 
-            <div>
-              <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <Icon name="Mail" className="w-4 h-4 mr-2" />
-                {t('form.email')}
-              </label>
-              <input
-                type="email"
-                {...register('email', { required: false })}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="john@example.com"
-              />
-            </div>
+                <div>
+                  <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
+                    <Icon name="Mail" className="w-4 h-4 mr-2" />
+                    {t('form.email')}
+                  </label>
+                  <input
+                    type="email"
+                    {...register('email', { required: false })}
+                    className="input-field"
+                    placeholder={t('form.emailPlaceholder')}
+                  />
+                </div>
+
+                <div>
+                  <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
+                    <Icon name="Phone" className="w-4 h-4 mr-2" />
+                    {t('form.phone')}
+                  </label>
+                  <input
+                    type="tel"
+                    {...register('phone')}
+                    className="input-field"
+                    placeholder={t('form.phonePlaceholder')}
+                  />
+                </div>
+              </>
+            )}
 
             <div>
               <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
                 <Icon name="Briefcase" className="w-4 h-4 mr-2" />
                 {t('form.role')}
               </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Icon name="Search" className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  {...register('role', { required: true })}
-                  className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Software Engineer"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                <Icon name="Phone" className="w-4 h-4 mr-2" />
-                {t('form.phone')}
-              </label>
               <input
-                type="tel"
-                {...register('phone')}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="+1 (555) 000-0000"
+                {...register('role', { required: true })}
+                className="input-field"
+                placeholder={t('form.rolePlaceholder')}
               />
             </div>
 
@@ -103,11 +92,11 @@ export function InterviewForm({ onSubmit, isLoading = false }: Props) {
               </label>
               <select
                 {...register('level', { required: true })}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="input-field"
               >
-                <option value="beginner">{t('form.levels.junior')}</option>
-                <option value="intermediate">{t('form.levels.mid')}</option>
-                <option value="advanced">{t('form.levels.senior')}</option>
+                <option value="junior">{t('form.levels.junior')}</option>
+                <option value="mid">{t('form.levels.mid')}</option>
+                <option value="senior">{t('form.levels.senior')}</option>
               </select>
             </div>
 
@@ -117,13 +106,11 @@ export function InterviewForm({ onSubmit, isLoading = false }: Props) {
               </label>
               <select
                 {...register('language', { required: true })}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="input-field"
               >
-                {languages.map(lang => (
-                  <option key={lang.code} value={lang.code}>
-                    {lang.label}
-                  </option>
-                ))}
+                <option value="en">English</option>
+                <option value="pt-BR">Português</option>
+                <option value="es">Español</option>
               </select>
             </div>
           </div>
@@ -131,12 +118,12 @@ export function InterviewForm({ onSubmit, isLoading = false }: Props) {
           <motion.button
             type="submit"
             disabled={isLoading}
-            className="w-full flex items-center justify-center gap-2 py-4 px-6 bg-blue-600 text-white rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-primary w-full"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
             {isLoading ? t('common.loading') : t('form.start')}
-            <Icon name="Send" className="w-5 h-5" />
+            <Icon name="ArrowRight" className="w-5 h-5" />
           </motion.button>
         </form>
       </motion.div>
